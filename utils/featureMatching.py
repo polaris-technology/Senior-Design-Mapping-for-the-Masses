@@ -480,6 +480,12 @@ def interpolate_gps_new(user_cartesian, interpolate_lat_file_path, interpolate_l
     lat_ds = gdal.Open(interpolate_lat_file_path)
     lon_ds = gdal.Open(interpolate_lon_file_path)
 
+    # Check if the datasets were opened successfully
+    if lat_ds is None:
+        raise ValueError(f"Failed to open latitude file: {interpolate_lat_file_path}")
+    if lon_ds is None:
+        raise ValueError(f"Failed to open longitude file: {interpolate_lon_file_path}")
+
     # Get the geotransform
     geotransform = lat_ds.GetGeoTransform()
 
