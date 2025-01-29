@@ -495,7 +495,7 @@ def interpolate_gps_new(user_cartesian, interpolate_lat_file_path, interpolate_l
 
     # Ensure indices are within raster bounds
     if col < 0 or row < 0 or col >= lat_ds.RasterXSize or row >= lat_ds.RasterYSize:
-        raise ValueError("Cartesian coordinates are out of bounds!")
+        raise ValueError(f"Cartesian coordinates are out of bounds! col: {col}, row: {row}, user_cartesian: {user_cartesian}")
     
     # Query pixel values for latitude and longitude
     lat_band = lat_ds.GetRasterBand(1)
