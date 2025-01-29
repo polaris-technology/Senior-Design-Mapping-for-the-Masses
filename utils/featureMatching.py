@@ -6,6 +6,7 @@ from collections import defaultdict
 from PIL import Image
 from scipy.spatial import KDTree
 import json
+import gdal  # Add this import statement
 
 def read_xyz(file_path):
     """Read XYZ data from a file."""
@@ -474,3 +475,26 @@ def interpolate_gps(user_cartesian, geojson_file):
         user_gps = np.dot(weights, nearest_gps)
 
     return user_gps
+def interpolate_gps_new(user_cartesian, interpolate_lat_file_path, interpolate_lon_file_path):
+    # Load the GeoTIFF file
+    lat_ds = gdal.Open(interpolate_lat_file_path)
+    lon_ds = gdal.Open(interpolate_lon_file_path)
+
+    # Get the geotransform
+    geotransform = lat_ds.GetGeoTransform()
+
+    # Calculate pixel indices from Cartesian coordinates
+    col = int((user_cartesian[0] - geotransform[0]) / geotransform[1])  # Transform[0]: Top-left X, Transform[1]: Pixel width
+    row = int((user_cartesian[2] - geotransform[3]) / geotransform[5])  # Transform[3]: Top-left Y, Transform[5]: Pixel height
+
+    # Ensure indices are within raster bounds
+    if col < 0 or row < 0 or col >= lat_ds.RasterXSize or row >= lat_ds.RasterYSize:
+        raise ValueError("Cartesian coordinates are out of bounds!")
+    
+    # Query pixel values for latitude and longitude
+    lat_band = lat_ds.GetRasterBand(1)
+    lon_band = lon_ds.GetRasterBand(1)
+    latitude = lat_band.ReadAsArray()[row, col]
+    longitude = lon_band.ReadAsArray()[row, col]
+
+    return latitude, longitude
