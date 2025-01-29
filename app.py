@@ -322,7 +322,7 @@ def get_new_gps():
         output_image_path_error_pixels = get_full_path(IMAGE_MATCHING_FOLDER, 'error_pixels.png')
         geojson_file_path = get_full_path(UPLOAD_FOLDER, 'RoomGeoJSON.geojson')
         interpolate_lon_path = get_full_path(UPLOAD_FOLDER, 'interpolate_lon.tif')
-        interpolate_lat_path = get_full_path(UPLOAD_FOLDER, 'interpolated_lan.tif')
+        interpolate_lat_path = get_full_path(UPLOAD_FOLDER, 'interpolated_lat.tif')
         
 
         # Read the blueprint data and get the bounding box / Read scan data
