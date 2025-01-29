@@ -6,7 +6,7 @@ from collections import defaultdict
 from PIL import Image
 from scipy.spatial import KDTree
 import json
-import gdal  # Add this import statement
+from osgeo import gdal  # Add this import statement
 
 def read_xyz(file_path):
     """Read XYZ data from a file."""
