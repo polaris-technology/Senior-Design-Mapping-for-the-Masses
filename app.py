@@ -244,7 +244,7 @@ def get_gps():
         output_image_path_scan = get_full_path(IMAGE_MATCHING_FOLDER, 'userScan.png')
         aligned_image_path = get_full_path(DOWNLOAD_FOLDER, 'aligned_image.png')
         output_image_path_error_pixels = get_full_path(IMAGE_MATCHING_FOLDER, 'error_pixels.png')
-        geojson_file_path = get_full_path(UPLOAD_FOLDER, 'RoomGeoJSON.geojson')
+        geojson_file_path = get_full_path(UPLOAD_FOLDER, 'GeoJsonflippedx.geojson')
 
         
 
